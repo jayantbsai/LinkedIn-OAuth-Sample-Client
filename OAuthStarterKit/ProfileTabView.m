@@ -25,7 +25,7 @@
     // register to be told when the login is finished
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(loginViewDidFinish:) 
-                                                 name:@"loginViewDidFinish" 
+                                                 name:LOGIN_VIEW_DID_FINISH 
                                                object:oAuthLoginView];
     
     [self presentModalViewController:oAuthLoginView animated:YES];

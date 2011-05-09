@@ -140,7 +140,7 @@
             // User refused to allow our app access
             // Notify parent and close this view
             [[NSNotificationCenter defaultCenter] 
-                    postNotificationName:@"loginViewDidFinish"        
+                    postNotificationName:LOGIN_VIEW_DID_FINISH        
                                   object:self 
                                 userInfo:nil];
 
@@ -196,7 +196,7 @@
     }
     // Notify parent and close this view
     [[NSNotificationCenter defaultCenter] 
-     postNotificationName:@"loginViewDidFinish"        
+     postNotificationName:LOGIN_VIEW_DID_FINISH        
      object:self];
     
     [self dismissModalViewControllerAnimated:YES];
