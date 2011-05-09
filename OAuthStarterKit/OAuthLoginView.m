@@ -140,7 +140,7 @@
             // User refused to allow our app access
             // Notify parent and close this view
             [[NSNotificationCenter defaultCenter] 
-                    postNotificationName:@"loginViewDidFinish"        
+                    postNotificationName:LOGIN_VIEW_DID_FINISH        
                                   object:self 
                                 userInfo:nil];
 
@@ -196,7 +196,7 @@
     }
     // Notify parent and close this view
     [[NSNotificationCenter defaultCenter] 
-     postNotificationName:@"loginViewDidFinish"        
+     postNotificationName:LOGIN_VIEW_DID_FINISH        
      object:self];
     
     [self dismissModalViewControllerAnimated:YES];
@@ -248,7 +248,7 @@
         
         // Notify parent and close this view
         [[NSNotificationCenter defaultCenter] 
-         postNotificationName:@"loginViewDidFinish"        
+         postNotificationName:LOGIN_VIEW_DID_FINISH
          object:self];
         
         [self dismissModalViewControllerAnimated:YES];
@@ -267,7 +267,11 @@
 }
 
 - (void)dealloc
-{
+{   
+    [requestTokenURL release];
+    [accessTokenURL release];
+    [userLoginURL release];
+    
     [super dealloc];
 }
 
@@ -291,7 +295,12 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (IBAction)dismissView:(id)sender
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
