@@ -19,8 +19,8 @@
 
 - (IBAction)button_TouchUp:(UIButton *)sender
 {    
+    [oAuthLoginView release];
     oAuthLoginView = [[OAuthLoginView alloc] initWithNibName:nil bundle:nil];
-    [oAuthLoginView retain];
  
     // register to be told when the login is finished
     [[NSNotificationCenter defaultCenter] addObserver:self 
@@ -208,6 +208,8 @@
 
 - (void)dealloc
 {
+    [oAuthLoginView release];
+    
     [super dealloc];
 }
 
