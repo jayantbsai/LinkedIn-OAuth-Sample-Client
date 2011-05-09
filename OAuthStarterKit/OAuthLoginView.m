@@ -267,7 +267,11 @@
 }
 
 - (void)dealloc
-{
+{   
+    [requestTokenURL release];
+    [accessTokenURL release];
+    [userLoginURL release];
+    
     [super dealloc];
 }
 
