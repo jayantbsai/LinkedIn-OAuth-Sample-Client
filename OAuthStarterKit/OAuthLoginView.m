@@ -61,7 +61,6 @@
                                                    encoding:NSUTF8StringEncoding];
     self.requestToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
     [responseBody release];
-    
     [self allowUserToLogin];
 }
 
@@ -83,8 +82,8 @@
 //
 - (void)allowUserToLogin
 {
-    NSString *userLoginURLWithToken = [NSString stringWithFormat:@"%@?oauth_token=%@&auth_token_secret=%@", 
-        userLoginURLString, self.requestToken.key, self.requestToken.secret];
+    NSString *userLoginURLWithToken = [NSString stringWithFormat:@"%@?oauth_token=%@", 
+        userLoginURLString, self.requestToken.key];
     
     userLoginURL = [NSURL URLWithString:userLoginURLWithToken];
     NSURLRequest *request = [NSMutableURLRequest requestWithURL: userLoginURL];
@@ -140,7 +139,7 @@
             // User refused to allow our app access
             // Notify parent and close this view
             [[NSNotificationCenter defaultCenter] 
-                    postNotificationName:LOGIN_VIEW_DID_FINISH        
+                    postNotificationName:@"loginViewDidFinish"        
                                   object:self 
                                 userInfo:nil];
 
@@ -196,7 +195,7 @@
     }
     // Notify parent and close this view
     [[NSNotificationCenter defaultCenter] 
-     postNotificationName:LOGIN_VIEW_DID_FINISH        
+     postNotificationName:@"loginViewDidFinish"        
      object:self];
     
     [self dismissModalViewControllerAnimated:YES];
@@ -209,8 +208,8 @@
 //
 - (void)initLinkedInApi
 {
-    apikey = @"API_KEY_HERE";
-    secretkey = @"API_SECRET_HERE";   
+    apikey = @"API_KEY";
+    secretkey = @"API_SECRET";   
 
     self.consumer = [[OAConsumer alloc] initWithKey:apikey
                                         secret:secretkey
@@ -248,7 +247,7 @@
         
         // Notify parent and close this view
         [[NSNotificationCenter defaultCenter] 
-         postNotificationName:LOGIN_VIEW_DID_FINISH
+         postNotificationName:@"loginViewDidFinish"        
          object:self];
         
         [self dismissModalViewControllerAnimated:YES];
@@ -267,11 +266,7 @@
 }
 
 - (void)dealloc
-{   
-    [requestTokenURL release];
-    [accessTokenURL release];
-    [userLoginURL release];
-    
+{
     [super dealloc];
 }
 
@@ -295,12 +290,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
-
-- (IBAction)dismissView:(id)sender
-{
-    [self dismissModalViewControllerAnimated:YES];
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

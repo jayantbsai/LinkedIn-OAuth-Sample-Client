@@ -19,13 +19,13 @@
 
 - (IBAction)button_TouchUp:(UIButton *)sender
 {    
-    [oAuthLoginView release];
     oAuthLoginView = [[OAuthLoginView alloc] initWithNibName:nil bundle:nil];
+    [oAuthLoginView retain];
  
     // register to be told when the login is finished
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(loginViewDidFinish:) 
-                                                 name:LOGIN_VIEW_DID_FINISH 
+                                                 name:@"loginViewDidFinish" 
                                                object:oAuthLoginView];
     
     [self presentModalViewController:oAuthLoginView animated:YES];
@@ -208,8 +208,6 @@
 
 - (void)dealloc
 {
-    [oAuthLoginView release];
-    
     [super dealloc];
 }
 
@@ -227,7 +225,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

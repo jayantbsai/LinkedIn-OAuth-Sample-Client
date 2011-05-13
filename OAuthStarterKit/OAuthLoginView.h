@@ -48,6 +48,5 @@
 - (void)requestTokenFromProvider;
 - (void)allowUserToLogin;
 - (void)accessTokenFromProvider;
-- (IBAction)dismissView:(id)sender;
 
 @end
